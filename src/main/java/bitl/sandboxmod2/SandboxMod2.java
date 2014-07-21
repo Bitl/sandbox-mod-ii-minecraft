@@ -31,6 +31,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.BlockStairs;
+import net.minecraft.block.BlockWoodSlab;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -55,7 +59,7 @@ public class SandboxMod2
 	public static final String MODID = "SandboxMod2";
 	@Instance(MODID)
 	public static SandboxMod2 instance;
-    public static final String VERSION = "1.1.1";
+    public static final String VERSION = "1.2.0";
     
     @SidedProxy(clientSide = "bitl.sandboxmod2.SandboxMod2ClientProxy", serverSide = "bitl.sandboxmod2.SandboxMod2CommonProxy")
 	public static SandboxMod2CommonProxy proxy;
@@ -91,7 +95,13 @@ public class SandboxMod2
     public void preInit(FMLPreInitializationEvent e)
     {
     	System.out.println("Pre-initializing 'Sandbox Mod 2' version "+SandboxMod2.VERSION);
-    	itemRuby = new ItemRuby().setUnlocalizedName("itemRuby").setTextureName(SandboxMod2.MODID + ":" + "itemRuby");
+    }
+    
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        System.out.println("Initializing 'Sandbox Mod 2' version "+SandboxMod2.VERSION);
+        itemRuby = new ItemRuby().setUnlocalizedName("itemRuby").setTextureName(SandboxMod2.MODID + ":" + "itemRuby");
     	GameRegistry.registerItem(itemRuby, itemRuby.getUnlocalizedName().substring(5));
     	itemRubySword = new ItemRubySword().setUnlocalizedName("itemRubySword").setTextureName(SandboxMod2.MODID + ":" + "itemRubySword");
     	GameRegistry.registerItem(itemRubySword, itemRubySword.getUnlocalizedName().substring(5));
@@ -115,7 +125,7 @@ public class SandboxMod2
     	GameRegistry.registerBlock(blockRubyOre, blockRubyOre.getUnlocalizedName().substring(5));
     	blockOldWoodenPlanks = new BlockOldWoodenPlanks().setBlockName("blockOldWoodenPlanks").setBlockTextureName(SandboxMod2.MODID + ":" + "blockOldWoodenPlanks").setHardness(2.0F).setResistance(5.0F);
     	GameRegistry.registerBlock(blockOldWoodenPlanks, blockOldWoodenPlanks.getUnlocalizedName().substring(5));
-    	blockCryingObsidian = new BlockCryingObsidian().setBlockName("blockCryingObsidian").setBlockTextureName(SandboxMod2.MODID + ":" + "blockCryingObsidian").setHardness(50.0F).setResistance(2000.0F);
+    	blockCryingObsidian = new BlockCryingObsidian().setBlockName("blockCryingObsidian").setBlockTextureName(SandboxMod2.MODID + ":" + "blockCryingObsidian").setHardness(2.0F).setResistance(5.0F);
     	GameRegistry.registerBlock(blockCryingObsidian, blockCryingObsidian.getUnlocalizedName().substring(5));
     	CraftingSandboxMod2.loadRecipes();
     	GameRegistry.registerWorldGenerator(worldgen, 0);
@@ -133,12 +143,6 @@ public class SandboxMod2
     	//registerEntity(EntityHerobrine.class, "entityHerobrine", 44975, 14144467);
     	registerEntityNoEgg(EntityHumanBase.class, "entityHumanBase");
     	registerEntityNoEgg(EntityHumanBaseEvil.class, "entityHumanBaseEvil");
-    }
-    
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-        System.out.println("Initializing 'Sandbox Mod 2' version "+SandboxMod2.VERSION);
         MinecraftForge.EVENT_BUS.register(new SandboxMod2EventHandler());
         proxy.registerRenderInformation();
     }

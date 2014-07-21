@@ -29,6 +29,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -73,6 +74,7 @@ public class EntityHumanArcherEvil extends EntityHumanBaseEvil implements IRange
 		this.bowTypeEvil = 0;
 		this.addArmorHuman(3);
 		this.selectBow();
+		this.setHumanRandomNameEx(StatCollector.translateToLocal("humanname.humanEvilArcher"), "");
 	}
 
 	/**

@@ -41,3 +41,7 @@ attribute.DiamondApple2=Resistance: 7 minutes and 30 seconds.
 attribute.DiamondApple3=Fire Resistance: 7 minutes and 30 seconds.
 attribute.DiamondApple4=Speed: 2 minutes and 30 seconds.
 attribute.Medkit1=+ Heals 3.5 hearts.
+humanname.humanArcher=Archer 
+humanname.humanKnight=Knight 
+humanname.humanEvilArcher=Evil Archer 
+humanname.humanEvilKnight=Evil Knight 

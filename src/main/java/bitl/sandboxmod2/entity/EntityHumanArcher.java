@@ -27,12 +27,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityHumanArcher extends EntityHumanBase implements IRangedAttackMob
 {
 	public int bowType;
+	public double followDistanceArcher = 1.25D;
 	
 	public EntityHumanArcher(World par1World) 
 	{
@@ -45,6 +47,14 @@ public class EntityHumanArcher extends EntityHumanBase implements IRangedAttackM
 		this.tasks.addTask(5, new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F));
 		this.tasks.addTask(6, new EntityAIMoveIndoors(this));
         this.tasks.addTask(7, new EntityAIOpenDoor(this, true));
+        this.tasks.addTask(8, new EntityAITempt(this, followDistanceArcher, Items.wooden_sword, false));
+        this.tasks.addTask(9, new EntityAITempt(this, followDistanceArcher, Items.stone_sword, false));
+        this.tasks.addTask(10, new EntityAITempt(this, followDistanceArcher, Items.iron_sword, false));
+        this.tasks.addTask(11, new EntityAITempt(this, followDistanceArcher, Items.golden_sword, false));
+        this.tasks.addTask(12, new EntityAITempt(this, followDistanceArcher, Items.diamond_sword, false));
+        this.tasks.addTask(13, new EntityAITempt(this, followDistanceArcher, SandboxMod2.itemRubySword, false));
+        this.tasks.addTask(14, new EntityAITempt(this, followDistanceArcher, Items.bow, false));
+        this.tasks.addTask(15, new EntityAITempt(this, followDistanceArcher, SandboxMod2.itemRubyBow, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityMob.class, 0, true));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntitySlime.class, 0, true));
@@ -70,6 +80,7 @@ public class EntityHumanArcher extends EntityHumanBase implements IRangedAttackM
 		this.bowType = 0;
 		this.addArmorHuman(3);
 		this.selectBow();
+		this.setHumanRandomNameEx(StatCollector.translateToLocal("humanname.humanArcher"), "");
 	}
 
 	/**

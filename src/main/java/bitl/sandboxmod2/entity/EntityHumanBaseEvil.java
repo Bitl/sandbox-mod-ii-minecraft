@@ -23,6 +23,7 @@ import net.minecraft.world.WorldProviderHell;
 public class EntityHumanBaseEvil extends EntityMob
 {
 	public int armorType = 0;
+	public static final String[] HumanNameEvil = new String[] {"Steve", "Jeb", "Markus", "Nathan", "Michael", "Steve?", "August", "Tony", "Henry", "Creeper", "Enderman", "Not Herobrine", "Heavy", "Medic", "Demoman", "Spy", "Scout", "Sniper", "Soldier", "Pyro", "Engineer", "Butter", "Gordon", "Alex", "Alyx", "Eli", "John", "Saxton Hale", "Bill", "Francis", "Louis", "Zoey", "Coach", "Nick", "Ellis", "Rochelle", "Judith", "Chell", "Jim", "Jimmy", "Mike", "Wallace", "Doug", "Cave", "Helena", "Harold", "Henry", "Ivan", "Richard", "Isaac", "Lauren", "Arne", "Sam", "Samuel", "Sheckley", "Simmons", "Adrian", "Barney", "Odell", "Azian", "Wheatley", "Greg", "Griggs", "Grigori", "GLaDOS", "Miller", "Atlas", "P-Body", "Notch", "Dinnerbone", "Bob", "Halsey", "Sarge", "Griff", "Caboose", "Will", "William", "Church", "Leonard", "Chris", "Christopher", "Daniel", "Dan", "jeb_", "Not Bitl"};
 	
 	public EntityHumanBaseEvil(World par1World) 
 	{
@@ -211,6 +212,157 @@ public class EntityHumanBaseEvil extends EntityMob
 	    	this.setCurrentItemOrArmor(3, new ItemStack(Items.diamond_leggings));
 	    	this.setCurrentItemOrArmor(4, new ItemStack(Items.diamond_boots));
     	}
+	}
+	
+	/**
+     * Makes entity wear random armor based on difficulty
+     */
+    protected void addRandomArmor()
+    {
+        if (this.rand.nextFloat() < 0.15F * this.worldObj.func_147462_b(this.posX, this.posY, this.posZ))
+        {
+            int var1 = this.rand.nextInt(2);
+            float var2 = 0.1F;
+
+            if (this.rand.nextFloat() < 0.095F)
+            {
+                ++var1;
+            }
+
+            if (this.rand.nextFloat() < 0.095F)
+            {
+                ++var1;
+            }
+
+            if (this.rand.nextFloat() < 0.095F)
+            {
+                ++var1;
+            }
+
+            for (int var3 = 3; var3 >= 0; --var3)
+            {
+                ItemStack var4 = this.func_130225_q(var3);
+
+                if (var3 < 3 && this.rand.nextFloat() < var2)
+                {
+                    break;
+                }
+
+                if (var4 == null)
+                {
+                    Item var5 = getArmorItemForSlot(var3 + 1, var1);
+
+                    if (var5 != null)
+                    {
+                        this.setCurrentItemOrArmor(var3 + 1, new ItemStack(var5));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Params: Armor slot, Item tier
+     */
+    public static Item getArmorItemForSlot(int par0, int par1)
+    {
+        switch (par0)
+        {
+            case 4:
+                if (par1 == 0)
+                {
+                    return Items.leather_helmet;
+                }
+                else if (par1 == 1)
+                {
+                    return Items.golden_helmet;
+                }
+                else if (par1 == 2)
+                {
+                    return Items.iron_helmet;
+                }
+                else if (par1 == 3)
+                {
+                    return Items.diamond_helmet;
+                }
+
+            case 3:
+                if (par1 == 0)
+                {
+                    return Items.leather_chestplate;
+                }
+                else if (par1 == 1)
+                {
+                    return Items.golden_chestplate;
+                }
+                else if (par1 == 2)
+                {
+                    return Items.iron_chestplate;
+                }
+                else if (par1 == 3)
+                {
+                    return Items.diamond_chestplate;
+                }
+
+            case 2:
+                if (par1 == 0)
+                {
+                    return Items.leather_leggings;
+                }
+                else if (par1 == 1)
+                {
+                    return Items.golden_leggings;
+                }
+                else if (par1 == 2)
+                {
+                    return Items.iron_leggings;
+                }
+                else if (par1 == 3)
+                {
+                    return Items.diamond_leggings;
+                }
+
+            case 1:
+                if (par1 == 0)
+                {
+                    return Items.leather_boots;
+                }
+                else if (par1 == 1)
+                {
+                    return Items.golden_boots;
+                }
+                else if (par1 == 2)
+                {
+                    return Items.iron_boots;
+                }
+                else if (par1 == 3)
+                {
+                    return Items.diamond_boots;
+                }
+
+            default:
+                return null;
+        }
+    }
+	
+	public void setHumanName(String par1)
+	{
+		this.setCustomNameTag(par1);
+	}
+	
+	public void setHumanRandomName()
+	{
+		this.setCustomNameTag(this.HumanNameEvil[this.rand.nextInt(this.HumanNameEvil.length)]);
+	}
+	
+	/**
+	 * Argument 1: Prefix,
+	 * Argument 2: Suffix
+	 */
+	
+	public void setHumanRandomNameEx(String par1, String par2)
+	{
+		this.setCustomNameTag(par1 + this.HumanNameEvil[this.rand.nextInt(this.HumanNameEvil.length)] + par2);
 	}
 	
 	public EntityItem func_145779_a(Item p_145779_1_, int p_145779_2_)

@@ -43,5 +43,6 @@ public class EntityHuman extends EntityHumanBase
 	protected void onHumanSpawn()
 	{
 		this.addArmorHuman(3);
+		this.setHumanRandomName();
 	}
 }

@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class EntityHumanKnightEvil extends EntityHumanBaseEvil
@@ -64,11 +65,12 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
 		this.swordTypeEvil = 0;
 		this.addArmorHuman(3);
 		this.selectSword();
+		this.setHumanRandomNameEx(StatCollector.translateToLocal("humanname.humanEvilKnight"), "");
 	}
 	
 	public void selectSword()
     {
-    	int swordSelector = this.rand.nextInt(6);
+    	int swordSelector = this.rand.nextInt(7);
     	
 		if (swordSelector == 1)
     	{
@@ -90,6 +92,10 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
     	{
     		this.swordTypeEvil = 5;
     	}
+		else if (swordSelector == 6)
+    	{
+    		this.swordTypeEvil = 6;
+    	}
 		else
     	{
     		this.swordTypeEvil = 0;
@@ -99,19 +105,23 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
     	{
     		this.setCurrentItemOrArmor(0, new ItemStack(Items.wooden_sword));
     	}
-    	else if (this.swordTypeEvil == 2)
+		else if (this.swordTypeEvil == 2)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
     	}
     	else if (this.swordTypeEvil == 3)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
     	}
     	else if (this.swordTypeEvil == 4)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.diamond_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
     	}
     	else if (this.swordTypeEvil == 5)
+    	{
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.diamond_sword));
+    	}
+    	else if (this.swordTypeEvil == 6)
     	{
     		this.setCurrentItemOrArmor(0, new ItemStack(SandboxMod2.itemRubySword));
     	}
@@ -132,17 +142,21 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
         }
     	else if (this.swordTypeEvil == 2)
         {
-    		this.func_145779_a(Items.iron_sword, 1);
+    		this.func_145779_a(Items.stone_sword, 1);
         }
     	else if (this.swordTypeEvil == 3)
         {
-    		this.func_145779_a(Items.golden_sword, 1);
+    		this.func_145779_a(Items.iron_sword, 1);
         }
     	else if (this.swordTypeEvil == 4)
         {
-    		this.func_145779_a(Items.diamond_sword, 1);
+    		this.func_145779_a(Items.golden_sword, 1);
         }
     	else if (this.swordTypeEvil == 5)
+        {
+    		this.func_145779_a(Items.diamond_sword, 1);
+        }
+    	else if (this.swordTypeEvil == 6)
         {
     		this.func_145779_a(SandboxMod2.itemRubySword, 1);
         }

@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.EntityAIMoveIndoors;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIOpenDoor;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
@@ -18,11 +19,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class EntityHumanKnight extends EntityHumanBase
 {
 	public int swordType;
+	public double followDistanceKnight = 1.25D;
 	
 	public EntityHumanKnight(World par1World) 
 	{
@@ -36,6 +39,14 @@ public class EntityHumanKnight extends EntityHumanBase
 		this.tasks.addTask(6, new EntityAIAttackOnCollide(this, EntitySlime.class, 1.2D, true));
 		this.tasks.addTask(7, new EntityAIMoveIndoors(this));
         this.tasks.addTask(8, new EntityAIOpenDoor(this, true));
+        this.tasks.addTask(9, new EntityAITempt(this, followDistanceKnight, Items.wooden_sword, false));
+        this.tasks.addTask(10, new EntityAITempt(this, followDistanceKnight, Items.stone_sword, false));
+        this.tasks.addTask(11, new EntityAITempt(this, followDistanceKnight, Items.iron_sword, false));
+        this.tasks.addTask(12, new EntityAITempt(this, followDistanceKnight, Items.golden_sword, false));
+        this.tasks.addTask(13, new EntityAITempt(this, followDistanceKnight, Items.diamond_sword, false));
+        this.tasks.addTask(14, new EntityAITempt(this, followDistanceKnight, SandboxMod2.itemRubySword, false));
+        this.tasks.addTask(15, new EntityAITempt(this, followDistanceKnight, Items.bow, false));
+        this.tasks.addTask(16, new EntityAITempt(this, followDistanceKnight, SandboxMod2.itemRubyBow, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityMob.class, 0, true));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntitySlime.class, 0, true));
@@ -61,11 +72,12 @@ public class EntityHumanKnight extends EntityHumanBase
 		this.swordType = 0;
 		this.addArmorHuman(3);
 		this.selectSword();
+		this.setHumanRandomNameEx(StatCollector.translateToLocal("humanname.humanKnight"), "");
 	}
 	
 	public void selectSword()
     {
-    	int swordSelector = this.rand.nextInt(6);
+    	int swordSelector = this.rand.nextInt(7);
     	
 		if (swordSelector == 1)
     	{
@@ -87,6 +99,10 @@ public class EntityHumanKnight extends EntityHumanBase
     	{
     		this.swordType = 5;
     	}
+		else if (swordSelector == 6)
+    	{
+    		this.swordType = 6;
+    	}
 		else
     	{
     		this.swordType = 0;
@@ -96,19 +112,23 @@ public class EntityHumanKnight extends EntityHumanBase
     	{
     		this.setCurrentItemOrArmor(0, new ItemStack(Items.wooden_sword));
     	}
-    	else if (this.swordType == 2)
+		else if (this.swordType == 2)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.stone_sword));
     	}
     	else if (this.swordType == 3)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.iron_sword));
     	}
     	else if (this.swordType == 4)
     	{
-    		this.setCurrentItemOrArmor(0, new ItemStack(Items.diamond_sword));
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.golden_sword));
     	}
     	else if (this.swordType == 5)
+    	{
+    		this.setCurrentItemOrArmor(0, new ItemStack(Items.diamond_sword));
+    	}
+    	else if (this.swordType == 6)
     	{
     		this.setCurrentItemOrArmor(0, new ItemStack(SandboxMod2.itemRubySword));
     	}
@@ -129,17 +149,21 @@ public class EntityHumanKnight extends EntityHumanBase
         }
     	else if (this.swordType == 2)
         {
-    		this.func_145779_a(Items.iron_sword, 1);
+    		this.func_145779_a(Items.stone_sword, 1);
         }
     	else if (this.swordType == 3)
         {
-    		this.func_145779_a(Items.golden_sword, 1);
+    		this.func_145779_a(Items.iron_sword, 1);
         }
     	else if (this.swordType == 4)
         {
-    		this.func_145779_a(Items.diamond_sword, 1);
+    		this.func_145779_a(Items.golden_sword, 1);
         }
     	else if (this.swordType == 5)
+        {
+    		this.func_145779_a(Items.diamond_sword, 1);
+        }
+    	else if (this.swordType == 6)
         {
     		this.func_145779_a(SandboxMod2.itemRubySword, 1);
         }

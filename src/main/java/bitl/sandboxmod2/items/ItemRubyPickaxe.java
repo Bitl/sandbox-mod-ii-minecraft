@@ -3,6 +3,7 @@ package bitl.sandboxmod2.items;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
 import bitl.sandboxmod2.SandboxMod2;
@@ -10,6 +11,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -58,6 +61,16 @@ public class ItemRubyPickaxe extends Item
 
 		return true;
 	}
+	
+	/**
+     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
+     */
+    public Multimap getAttributeModifiers(ItemStack par1ItemStack)
+    {
+        Multimap var1 = super.getAttributeModifiers(par1ItemStack);
+        var1.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)5.0D, 0));
+        return var1;
+    }
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {
