@@ -5,9 +5,18 @@ import java.util.Random;
 import bitl.sandboxmod2.blocks.BlockCryingObsidian;
 import bitl.sandboxmod2.blocks.BlockOldWoodenPlanks;
 import bitl.sandboxmod2.blocks.BlockRubyBlock;
+import bitl.sandboxmod2.entity.EntityHuman;
+import bitl.sandboxmod2.entity.EntityHumanArcher;
+import bitl.sandboxmod2.entity.EntityHumanArcherEvil;
+import bitl.sandboxmod2.entity.EntityHumanBase;
+import bitl.sandboxmod2.entity.EntityHumanBaseEvil;
+import bitl.sandboxmod2.entity.EntityHumanKnight;
+import bitl.sandboxmod2.entity.EntityHumanKnightEvil;
 import bitl.sandboxmod2.items.ItemDiamondApple;
 import bitl.sandboxmod2.items.ItemEnderCrystal;
 import bitl.sandboxmod2.items.ItemIronApple;
+import bitl.sandboxmod2.items.ItemMedkit;
+import bitl.sandboxmod2.items.ItemPrimedTNT;
 import bitl.sandboxmod2.items.ItemRuby;
 import bitl.sandboxmod2.items.ItemRubyBow;
 import bitl.sandboxmod2.items.ItemRubyPickaxe;
@@ -15,11 +24,20 @@ import bitl.sandboxmod2.items.ItemRubySword;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMonsterPlacer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -37,7 +55,7 @@ public class SandboxMod2
 	public static final String MODID = "SandboxMod2";
 	@Instance(MODID)
 	public static SandboxMod2 instance;
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
     
     @SidedProxy(clientSide = "bitl.sandboxmod2.SandboxMod2ClientProxy", serverSide = "bitl.sandboxmod2.SandboxMod2CommonProxy")
 	public static SandboxMod2CommonProxy proxy;
@@ -50,6 +68,8 @@ public class SandboxMod2
     public static Item itemIronApple;
     public static Item itemDiamondApple;
     public static Item itemEnderCrystal;
+    public static Item itemPrimedTNT;
+    public static Item itemMedkit;
     //Blocks
     public static Block blockRubyBlock;
     public static Block blockRubyOre;
@@ -85,6 +105,10 @@ public class SandboxMod2
     	GameRegistry.registerItem(itemDiamondApple, itemDiamondApple.getUnlocalizedName().substring(5));
     	itemEnderCrystal = new ItemEnderCrystal().setUnlocalizedName("itemEnderCrystal").setTextureName(SandboxMod2.MODID + ":" + "itemEnderCrystal");
     	GameRegistry.registerItem(itemEnderCrystal, itemEnderCrystal.getUnlocalizedName().substring(5));
+    	itemPrimedTNT = new ItemPrimedTNT().setUnlocalizedName("itemPrimedTNT").setTextureName(SandboxMod2.MODID + ":" + "itemPrimedTNT");
+    	GameRegistry.registerItem(itemPrimedTNT, itemPrimedTNT.getUnlocalizedName().substring(5));
+    	itemMedkit = new ItemMedkit().setUnlocalizedName("itemMedkit").setTextureName(SandboxMod2.MODID + ":" + "itemMedkit");
+    	GameRegistry.registerItem(itemMedkit, itemMedkit.getUnlocalizedName().substring(5));
     	blockRubyBlock = new BlockRubyBlock().setBlockName("blockRubyBlock").setBlockTextureName(SandboxMod2.MODID + ":" + "blockRubyBlock").setHardness(5.0F).setResistance(10.0F);
     	GameRegistry.registerBlock(blockRubyBlock, blockRubyBlock.getUnlocalizedName().substring(5));
     	blockRubyOre = new BlockRubyBlock().setBlockName("blockRubyOre").setBlockTextureName(SandboxMod2.MODID + ":" + "blockRubyOre").setHardness(3.0F).setResistance(5.0F);
@@ -100,6 +124,15 @@ public class SandboxMod2
     	registerEntityEgg(64, 7237230, 4734347);
     	registerEntityEgg(97, 14144467, 5653556);
     	registerEntityEgg(99, 4802889, 14144467);
+    	registerEntity(EntityHuman.class, "entityHuman", 44975, 12422002);
+    	registerEntity(EntityHumanArcher.class, "entityHumanArcher", 44975, 5651507);
+    	registerEntity(EntityHumanKnight.class, "entityHumanKnight", 44975, 10592673);
+    	registerEntity(EntityHumanArcherEvil.class, "entityHumanArcherEvil", 2243405, 5651507);
+    	registerEntity(EntityHumanKnightEvil.class, "entityHumanKnightEvil", 2243405, 10592673);
+    	//This guy doesn't exist....YET! - Bitl
+    	//registerEntity(EntityHerobrine.class, "entityHerobrine", 44975, 14144467);
+    	registerEntityNoEgg(EntityHumanBase.class, "entityHumanBase");
+    	registerEntityNoEgg(EntityHumanBaseEvil.class, "entityHumanBaseEvil");
     }
     
     @EventHandler
@@ -127,5 +160,12 @@ public class SandboxMod2
     public static void registerEntityEgg(int entityID, int primaryColor, int secondaryColor)
     {
     	EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColor, secondaryColor));
+    }
+    
+    public static void registerEntityNoEgg(Class entityClass, String name)
+    {
+    	int entityID = EntityRegistry.findGlobalUniqueEntityId();
+    	EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
+		EntityRegistry.registerModEntity(entityClass, name, entityID, instance, 64, 1, true);
     }
 }

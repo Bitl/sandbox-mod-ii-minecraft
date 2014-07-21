@@ -3,6 +3,8 @@ package bitl.sandboxmod2.items;
 
 import java.util.List;
 
+import com.google.common.collect.Multimap;
+
 import bitl.sandboxmod2.SandboxMod2;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -27,11 +29,6 @@ public class ItemRubySword extends Item
         this.setMaxDamage(651);
 		this.setCreativeTab(SandboxMod2.tabSandboxMod2);
 	}
-	
-	public float func_150931_i()
-    {
-        return 8;
-    }
 	
 	public float func_150893_a(ItemStack p_150893_1_, Block p_150893_2_)
     {
@@ -96,6 +93,16 @@ public class ItemRubySword extends Item
 	{
 		return p_150897_1_ == Blocks.web;
 	}
+	
+	/**
+     * Gets a map of item attribute modifiers, used by ItemSword to increase hit damage.
+     */
+    public Multimap getAttributeModifiers(ItemStack par1ItemStack)
+    {
+        Multimap var1 = super.getAttributeModifiers(par1ItemStack);
+        var1.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Weapon modifier", (double)7.0D, 0));
+        return var1;
+    }
 	
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
     {

@@ -72,6 +72,13 @@ public class CraftingSandboxMod2
             'D', Items.diamond, 'A', Items.apple
         });
         
+        GameRegistry.addRecipe(new ItemStack(SandboxMod2.itemMedkit), new Object[]{
+            " S ",
+            "IWI",
+            "III",
+            'W', Items.wheat_seeds, 'I', Items.iron_ingot, 'S', Items.stick
+        });
+        
         GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRuby, 9), new Object[]{
             new ItemStack(SandboxMod2.blockRubyBlock)
         });
