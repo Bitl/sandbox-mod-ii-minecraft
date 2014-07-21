@@ -69,7 +69,7 @@ public class ItemRubyBow extends Item
             }
             
             var8.setDamage(3.5D);
-
+            //par1ItemStack.damageItem(1, par3EntityPlayer);
             par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + var7 * 0.5F);
 
             if (var5)
@@ -91,6 +91,14 @@ public class ItemRubyBow extends Item
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         return par1ItemStack;
+    }
+    
+    /**
+     * How long it takes to use or consume an item
+     */
+    public int getMaxItemUseDuration(ItemStack par1ItemStack)
+    {
+        return 72000;
     }
 
     /**
