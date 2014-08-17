@@ -31,7 +31,7 @@ public class WorldGenSandboxMod2 implements IWorldGenerator
  
     public void generateSurface(World world, Random random, int x, int z)
     {
-        this.addOreSpawn(SandboxMod2.blockRubyOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 35, 25, 50);
+        this.addOreSpawn(SandboxMod2.blockRubyOre, world, random, x, z, 16, 16, 4 + random.nextInt(3), 25, 50, 75);
         System.out.println("Running 'Sandbox Mod 2' world generator for the Surface.");
     }
  
@@ -71,5 +71,15 @@ public class WorldGenSandboxMod2 implements IWorldGenerator
             int posZ = blockZPos + random.nextInt(maxZ);
             (new WorldGenMinable(block, maxVeinSize)).generate(world, random, posX, posY, posZ);
         }
+    }
+    
+    public String getName()
+    {
+    	return "Sandbox Mod II World Generator";
+    }
+    
+    public String getModID()
+    {
+    	return "SandboxMod2"; //need for ungenerating mod
     }
 }

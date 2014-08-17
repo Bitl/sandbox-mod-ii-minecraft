@@ -79,8 +79,53 @@ public class CraftingSandboxMod2
             'W', Items.wheat_seeds, 'I', Items.iron_ingot, 'S', Items.stick
         });
         
+        GameRegistry.addRecipe(new ItemStack(SandboxMod2.itemRapidFireBow), new Object[]{
+            " WS",
+            "WDS",
+            " WS",
+            'W', Items.stick, 'S', Items.string, 'D', Items.diamond
+        });
+        
+        GameRegistry.addRecipe(new ItemStack(SandboxMod2.itemRapidFireBowRuby), new Object[]{
+            " RS",
+            "RDS",
+            " RS",
+            'R', SandboxMod2.itemRuby, 'S', Items.string, 'D', Items.diamond
+        });
+        
+        GameRegistry.addRecipe(new ItemStack(SandboxMod2.itemGoldMedkit), new Object[]{
+            " S ",
+            "GWG",
+            "GGG",
+            'W', Items.wheat_seeds, 'G', Items.gold_ingot, 'S', Items.stick
+        });
+        
         GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRuby, 9), new Object[]{
             new ItemStack(SandboxMod2.blockRubyBlock)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRapidFireBow, 1), new Object[]{
+            new ItemStack(Items.bow), new ItemStack(Items.diamond)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRubyBow, 1), new Object[]{
+            new ItemStack(Items.bow), new ItemStack(SandboxMod2.itemRuby)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRapidFireBowRuby, 1), new Object[]{
+            new ItemStack(SandboxMod2.itemRubyBow), new ItemStack(Items.diamond)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRapidFireBowRuby, 1), new Object[]{
+            new ItemStack(SandboxMod2.itemRapidFireBow), new ItemStack(SandboxMod2.itemRuby)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemRapidFireBowRuby, 1), new Object[]{
+            new ItemStack(SandboxMod2.itemRapidFireBow), new ItemStack(SandboxMod2.itemRuby)
+        });
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(SandboxMod2.itemGoldMedkit, 1), new Object[]{
+            new ItemStack(SandboxMod2.itemMedkit), new ItemStack(Items.gold_ingot)
         });
         
         GameRegistry.addSmelting(SandboxMod2.blockRubyOre, new ItemStack(SandboxMod2.itemRuby), 0.1F);

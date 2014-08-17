@@ -23,12 +23,13 @@ import net.minecraft.world.WorldProviderHell;
 public class EntityHumanBaseEvil extends EntityMob
 {
 	public int armorType = 0;
-	public static final String[] HumanNameEvil = new String[] {"Steve", "Jeb", "Markus", "Nathan", "Michael", "Steve?", "August", "Tony", "Henry", "Creeper", "Enderman", "Not Herobrine", "Heavy", "Medic", "Demoman", "Spy", "Scout", "Sniper", "Soldier", "Pyro", "Engineer", "Butter", "Gordon", "Alex", "Alyx", "Eli", "John", "Saxton Hale", "Bill", "Francis", "Louis", "Zoey", "Coach", "Nick", "Ellis", "Rochelle", "Judith", "Chell", "Jim", "Jimmy", "Mike", "Wallace", "Doug", "Cave", "Helena", "Harold", "Henry", "Ivan", "Richard", "Isaac", "Lauren", "Arne", "Sam", "Samuel", "Sheckley", "Simmons", "Adrian", "Barney", "Odell", "Azian", "Wheatley", "Greg", "Griggs", "Grigori", "GLaDOS", "Miller", "Atlas", "P-Body", "Notch", "Dinnerbone", "Bob", "Halsey", "Sarge", "Griff", "Caboose", "Will", "William", "Church", "Leonard", "Chris", "Christopher", "Daniel", "Dan", "jeb_", "Not Bitl"};
+	public static final String[] HumanNameEvil = new String[] {"Steve", "Jeb", "Markus", "Nathan", "Michael", "Steve?", "August", "Tony", "Henry", "Creeper", "Enderman", "Not Herobrine", "Heavy", "Medic", "Demoman", "Spy", "Scout", "Sniper", "Soldier", "Pyro", "Engineer", "Butter", "Gordon", "Alex", "Alyx", "Eli", "John", "Saxton Hale", "Bill", "Francis", "Louis", "Zoey", "Coach", "Nick", "Ellis", "Rochelle", "Judith", "Chell", "Jim", "Jimmy", "Mike", "Wallace", "Doug", "Cave", "Helena", "Harold", "Henry", "Ivan", "Richard", "Isaac", "Lauren", "Arne", "Sam", "Samuel", "Sheckley", "Simmons", "Adrian", "Barney", "Odell", "Azian", "Wheatley", "Greg", "Griggs", "Grigori", "GLaDOS", "Miller", "Atlas", "P-Body", "Notch", "Dinnerbone", "Bob", "Halsey", "Sarge", "Griff", "Caboose", "Will", "William", "Church", "Leonardo", "Chris", "Christopher", "Daniel", "Dan", "jeb_", "Not Bitl", "Booker", "Elizabeth", "Emmet", "Wyldstyle", "Vitruvius", "Jack", "Eleanor", "Augustus", "Benny", "Rantis", "Leonardo", "Raphael", "Michelangelo", "Donatello", "Don", "Raph", "Donny", "Donnie"};
 	
 	public EntityHumanBaseEvil(World par1World) 
 	{
 		super(par1World);
 		this.onHumanSpawn();
+		this.experienceValue = 3;
 	}
 	
 	protected void applyEntityAttributes()
@@ -211,6 +212,30 @@ public class EntityHumanBaseEvil extends EntityMob
 	    	this.setCurrentItemOrArmor(2, new ItemStack(Items.diamond_chestplate));
 	    	this.setCurrentItemOrArmor(3, new ItemStack(Items.diamond_leggings));
 	    	this.setCurrentItemOrArmor(4, new ItemStack(Items.diamond_boots));
+    	}
+	}
+	
+	public void setHumanArmorHealth()
+	{
+		if (this.armorType == 1)
+    	{
+			this.setHealth(this.getMaxHealth() + 10);
+    	}
+		else if (this.armorType == 2)
+    	{
+			this.setHealth(this.getMaxHealth() + 15);
+    	}
+		else if (this.armorType == 3)
+    	{
+			this.setHealth(this.getMaxHealth() + 20);
+    	}
+    	else if (this.armorType == 4)
+    	{
+    		this.setHealth(this.getMaxHealth() + 30);
+    	}
+    	else if (this.armorType == 0)
+    	{
+    		this.setHealth(this.getMaxHealth());
     	}
 	}
 	

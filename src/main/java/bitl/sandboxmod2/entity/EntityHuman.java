@@ -19,7 +19,7 @@ public class EntityHuman extends EntityHumanBase
 		this.getNavigator().setBreakDoors(true);
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
 		this.tasks.addTask(4, new EntityAILookIdle(this));
 		this.tasks.addTask(5, new EntityAIMoveIndoors(this));
         this.tasks.addTask(6, new EntityAIOpenDoor(this, true));
@@ -44,5 +44,6 @@ public class EntityHuman extends EntityHumanBase
 	{
 		this.addArmorHuman(3);
 		this.setHumanRandomName();
+		this.setHumanArmorHealth();
 	}
 }

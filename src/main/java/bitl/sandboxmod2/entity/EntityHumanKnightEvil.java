@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 public class EntityHumanKnightEvil extends EntityHumanBaseEvil
 {
 	public int swordTypeEvil;
+	public double evilKnightAttackDamage = 1.0D;
 	
 	public EntityHumanKnightEvil(World par1World) 
 	{
@@ -32,13 +33,15 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
 		this.getNavigator().setBreakDoors(true);
 		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(2, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(4, new EntityAILookIdle(this));
-		this.tasks.addTask(5, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, true));
-		this.tasks.addTask(6, new EntityAIAttackOnCollide(this, EntityHumanBase.class, 1.2D, true));
-		this.tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityVillager.class, 1.2D, true));
-		this.tasks.addTask(8, new EntityAIMoveIndoors(this));
-        this.tasks.addTask(9, new EntityAIOpenDoor(this, true));
+		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityHumanBase.class, 8.0F));
+		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityVillager.class, 8.0F));
+		this.tasks.addTask(6, new EntityAILookIdle(this));
+		this.tasks.addTask(7, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, true));
+		this.tasks.addTask(8, new EntityAIAttackOnCollide(this, EntityHumanBase.class, 1.2D, true));
+		this.tasks.addTask(9, new EntityAIAttackOnCollide(this, EntityVillager.class, 1.2D, true));
+		this.tasks.addTask(10, new EntityAIMoveIndoors(this));
+        this.tasks.addTask(11, new EntityAIOpenDoor(this, true));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
 		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityHumanBase.class, 0, true));
@@ -52,7 +55,7 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(32.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(this.evilKnightAttackDamage);
 	}
 	
 	public boolean isAIEnabled()
@@ -65,7 +68,9 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
 		this.swordTypeEvil = 0;
 		this.addArmorHuman(3);
 		this.selectSword();
+		this.selectSwordDamage();
 		this.setHumanRandomNameEx(StatCollector.translateToLocal("humanname.humanEvilKnight"), "");
+		this.setHumanArmorHealth();
 	}
 	
 	public void selectSword()
@@ -130,6 +135,38 @@ public class EntityHumanKnightEvil extends EntityHumanBaseEvil
     		this.setCurrentItemOrArmor(0, new ItemStack(Items.wooden_sword));
     	}
     }
+	
+	public void selectSwordDamage()
+	{
+		if (this.swordTypeEvil == 1)
+    	{
+			this.evilKnightAttackDamage = 2.0D;
+    	}
+		else if (this.swordTypeEvil == 2)
+    	{
+			this.evilKnightAttackDamage = 3.0D;
+    	}
+    	else if (this.swordTypeEvil == 3)
+    	{
+    		this.evilKnightAttackDamage = 4.0D;
+    	}
+    	else if (this.swordTypeEvil == 4)
+    	{
+    		this.evilKnightAttackDamage = 5.0D;
+    	}
+    	else if (this.swordTypeEvil == 5)
+    	{
+    		this.evilKnightAttackDamage = 6.0D;
+    	}
+    	else if (this.swordTypeEvil == 6)
+    	{
+    		this.evilKnightAttackDamage = 6.0D;
+    	}
+		else if (this.swordTypeEvil == 0)
+    	{
+			this.evilKnightAttackDamage = 2.0D;
+    	}
+	}
 	
 	/**
      * Drop 0-2 items of this living's type

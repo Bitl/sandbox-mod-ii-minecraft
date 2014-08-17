@@ -1,5 +1,6 @@
 package bitl.sandboxmod2;
 
+import bitl.sandboxmod2.entity.EntityAIGiant;
 import bitl.sandboxmod2.entity.EntityHuman;
 import bitl.sandboxmod2.entity.EntityHumanArcher;
 import bitl.sandboxmod2.entity.EntityHumanArcherEvil;
@@ -7,7 +8,10 @@ import bitl.sandboxmod2.entity.EntityHumanBase;
 import bitl.sandboxmod2.entity.EntityHumanBaseEvil;
 import bitl.sandboxmod2.entity.EntityHumanKnight;
 import bitl.sandboxmod2.entity.EntityHumanKnightEvil;
+import bitl.sandboxmod2.render.ItemRendererRapidFireBow;
+import bitl.sandboxmod2.render.ItemRendererRapidFireBowRuby;
 import bitl.sandboxmod2.render.ItemRendererRubyBow;
+import bitl.sandboxmod2.render.RenderAIGiant;
 import bitl.sandboxmod2.render.RenderHuman;
 import bitl.sandboxmod2.render.RenderHumanArcher;
 import bitl.sandboxmod2.render.RenderHumanArcherEvil;
@@ -18,9 +22,11 @@ import bitl.sandboxmod2.render.RenderHumanKnightEvil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelSkeleton;
+import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.entity.RenderTNTPrimed;
+import net.minecraft.entity.monster.EntityGiantZombie;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,6 +39,8 @@ public class SandboxMod2ClientProxy extends SandboxMod2CommonProxy
 	public void registerRenderInformation() 
 	{
 		MinecraftForgeClient.registerItemRenderer(SandboxMod2.itemRubyBow, new ItemRendererRubyBow());
+		MinecraftForgeClient.registerItemRenderer(SandboxMod2.itemRapidFireBow, new ItemRendererRapidFireBow());
+		MinecraftForgeClient.registerItemRenderer(SandboxMod2.itemRapidFireBowRuby, new ItemRendererRapidFireBowRuby());
 		RenderingRegistry.registerEntityRenderingHandler(EntityHumanBase.class, new RenderHumanBase(new ModelBiped(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityHumanBaseEvil.class, new RenderHumanBaseEvil(new ModelBiped(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityHuman.class, new RenderHuman(new ModelBiped(), 0.5F));
@@ -40,5 +48,6 @@ public class SandboxMod2ClientProxy extends SandboxMod2CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityHumanKnight.class, new RenderHumanKnight(new ModelBiped(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityHumanArcherEvil.class, new RenderHumanArcherEvil(new ModelBiped(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityHumanKnightEvil.class, new RenderHumanKnightEvil(new ModelBiped(), 0.5F));
+		RenderingRegistry.registerEntityRenderingHandler(EntityAIGiant.class, new RenderAIGiant(new ModelZombie(), 0.5F, 6.0F));
 	}
 }
